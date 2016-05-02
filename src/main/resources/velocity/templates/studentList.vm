@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>七一工作室后台管理系统</title>
+
+    <link href="#springUrl('/resources/css/bootstrap.min.css?v=3.4.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/font-awesome.min.css?v=4.3.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/animate.min.css')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/markdown/bootstrap-markdown.min.css')" />
+    <link href="#springUrl('/resources/css/style.min.css?v=3.2.0')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')">
+    
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/webuploader/webuploader.css')">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/demo/webuploader-demo.css')">
+
+</head>
+
+<body class="gray-bg">
+    <div class="row">
+            <div class="col-sm-12">
+                
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <form action="/workshop/student/searchStudent" method="post">
+                                <div class="input-group">
+                                
+                                    <input name="name" type="text" placeholder="请输入学生名字" class="input-sm form-control" value="$!{student.name}"> <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-3">
+                            <form action="/workshop/student/searchStudent" method="post">
+                                <div class="input-group">
+                                
+                                	<input name="qq" type="text" placeholder="请输入学生QQ" class="input-sm form-control" value="$!{student.qq}"> <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                                </form>
+                            </div>
+                            <form action="/workshop/student/searchStudent" method="post">
+                            <div class="row">
+                            	<div class="col-sm-6">
+                            		 <label class="col-sm-2 control-label">过滤数据</label>
+                            		<div class="radio radio-info radio-inline">
+                                        <input type="radio" id="inlineRadio1" value="0" name="status" #if(!$student.status != 1)checked="" #end>
+                                        <label for="inlineRadio1"> 正在进行 </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" id="inlineRadio2" value="1" name="status" #if(!$student.status == 1)checked="" #end>
+                                        <label for="inlineRadio2"> 已经完成 </label>
+                                    </div>
+                                    
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" id="inlineRadio3" value="1" name="category" #if(!$student.category != 0)checked="" #end>
+                                        <label for="inlineRadio3"> 付费 </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" id="inlineRadio4" value="0" name="category" #if(!$student.category == 0)checked="" #end>
+                                        <label for="inlineRadio4"> 咨询 </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" id="inlineRadio5" value="0" name="all">
+                                        <label for="inlineRadio5"> 全部 </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> 
+                                        </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>姓名</th>
+                                        <th>淘宝ID</th>
+                                        <th>手机号</th>
+                                        <th>QQ</th>
+                                        <th>分类</th>
+                                        <th>申请年份</th>
+                                        <th>申请截止日期</th>
+                                        <th>文书状态详情</th>
+                                        <th>专业</th>
+                                        <th>付费状态</th>
+                                        <th>希望电话时间</th>
+                                        <th>状态</th>
+                                        <th>备注</th>
+                                        <th>创建日期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                #foreach( $item in $list) 
+                                    <tr>
+                                        <td>$!item.name</td>
+                                        <td><span class="pie">$!item.taobaoId</span>
+                                        </td>
+                                        <td>$!item.mobile</td>
+                                        <td>$!item.qq</td>
+                                        <td>$!item.type</td>
+                                        <td>$!item.year</td>
+                                        <td>$!item.endDateString</td>
+                                        <td><a href="/workshop/mission/searchMission?name=$!item.name"><i class="fa fa-check text-navy">查看</i></td>
+                                        <td>$!item.major</td>
+                                       	<td>
+                                        #if($!item.category == 1)
+                                        	付费
+                                        #else
+                                        	咨询
+                                        #end
+                                        </td>
+                                        <td>$!item.expectDialTime</td>
+                                        <td>
+                                        #if($!item.status == 1)
+                                        	已经完成
+                                        #else
+                                        	正在进行
+                                        #end
+                                        </td>
+                                        <td>$!item.description</td>
+                                        <td>$!item.createDateString</td>
+                                        <td>
+                                        <a href="/workshop/student/goEditStudent?id=$!item.id"><i class="fa fa-check text-navy">编辑</i>
+                                        <a href="/workshop/student/goContact?id=$!item.id"><i class="fa fa-check text-navy">聊天记录</i>
+                                        <a href="/workshop/student/called?id=$!item.id"><i class="fa fa-check text-navy">已经打完电话</i>
+                                        <a href="/workshop/mission/goAddMission?studentId=$!item.id"><i class="fa fa-check text-navy">添加活动</i>
+                                        </td>
+                                    </tr>
+                                 #end 
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+      
+
+        </div>
+
+    <!-- 全局js -->
+    <script src="#springUrl('/resources/js/jquery-2.1.1.min.js')"></script>
+    <script src="#springUrl('/resources/js/bootstrap.min.js?v=3.4.0')"></script>
+
+    <!-- 自定义js -->
+    <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
+
+    <!-- simditor -->
+    <script type="text/javascript" src="#springUrl('/resourcesjs/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>
+    
+	<!-- jQuery Validation plugin javascript-->
+    <script src="#springUrl('/resources/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/validate/messages_zh.min.js')"></script>
+    <script>
+        $.validator.setDefaults({highlight:function(a){$(a).closest(".form-group").removeClass("has-success").addClass("has-error")},success:function(a){a.closest(".form-group").removeClass("has-error").addClass("has-success")},errorElement:"span",errorPlacement:function(a,b){if(b.is(":radio")||b.is(":checkbox")){a.appendTo(b.parent().parent().parent())}else{a.appendTo(b.parent())}},errorClass:"help-block m-b-none",validClass:"help-block m-b-none"});$().ready(function(){$("#commentForm").validate();var a="<i class='fa fa-times-circle'></i> ";$("#signupForm").validate({rules:{firstname:"required",lastname:"required",username:{required:true,minlength:2},password:{required:true,minlength:5},confirm_password:{required:true,minlength:5,equalTo:"#password"},email:{required:true,email:true},topic:{required:"#newsletter:checked",minlength:2},agree:"required"},messages:{firstname:a+"请输入你的姓",lastname:a+"请输入您的名字",username:{required:a+"请输入您的用户名",minlength:a+"用户名必须两个字符以上"},password:{required:a+"请输入您的密码",minlength:a+"密码必须5个字符以上"},confirm_password:{required:a+"请再次输入密码",minlength:a+"密码必须5个字符以上",equalTo:a+"两次输入的密码不一致"},email:a+"请输入您的E-mail",agree:{required:a+"必须同意协议后才能注册",element:"#agree-error"}}});$("#username").focus(function(){var c=$("#firstname").val();var b=$("#lastname").val();if(c&&b&&!this.value){this.value=c+"."+b}})});
+    </script>
+
+	<script>
+	$(document).ready(function(){
+	  $("input[name=all]").click(function(){
+	  $(inlineRadio1).removeAttr("checked");
+	  $(inlineRadio2).removeAttr("checked");
+	  $(inlineRadio3).removeAttr("checked");
+	  $(inlineRadio4).removeAttr("checked");
+	  });
+	  
+	  $("input[name=status]").click(function(){
+	  $(inlineRadio5).removeAttr("checked");
+	  });
+	   $("input[name=category]").click(function(){
+	  $(inlineRadio5).removeAttr("checked");
+	  });
+	});
+</script>
+ 
+</body>
+
+</html>

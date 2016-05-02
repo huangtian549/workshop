@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>七一工作室后台管理系统</title>
+
+    <link href="#springUrl('/resources/css/bootstrap.min.css?v=3.4.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/font-awesome.min.css?v=4.3.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/animate.min.css')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/markdown/bootstrap-markdown.min.css')" />
+    <link href="#springUrl('/resources/css/style.min.css?v=3.2.0')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')">
+    <style type="text/css">
+
+#Container{
+
+	width:1000px;
+
+	margin:0 auto;/*设置整个容器在浏览器中水平居中*/
+
+	background:#CF3;
+
+}
+
+#Header{
+
+	height:80px;
+
+	background:#093;
+
+}
+
+#logo{
+
+	padding-left:50px;
+
+	padding-top:20px;
+
+	padding-bottom:50px;
+
+}
+
+#Content{
+
+	height:600px;
+
+	/*此处对容器设置了高度，一般不建议对容器设置高度，一般使用overflow:auto;属性设置容器根据内容自适应高度，如果不指定高度或不设置自适应高度，容器将默认为1个字符高度，容器下方的布局元素（footer）设置margin-top:属性将无效*/
+
+	margin-top:20px;/*此处讲解margin的用法，设置content与上面header元素之间的距离*/
+
+
+	
+
+}
+
+#Content-Left{
+
+
+	width:200px;
+
+	margin:100px;/*设置元素跟其他元素的距离为20像素*/
+
+	float:left;/*设置浮动，实现多列效果，div+Css布局中很重要的*/
+
+
+}
+
+#Content-Main{
+
+
+	width:220px;
+
+	margin:100px;/*设置元素跟其他元素的距离为20像素*/
+
+	float:left;/*设置浮动，实现多列效果，div+Css布局中很重要的*/
+
+
+}
+
+#Content-right{
+
+
+	width:220px;
+
+	margin:100px;/*设置元素跟其他元素的距离为20像素*/
+
+	float:left;/*设置浮动，实现多列效果，div+Css布局中很重要的*/
+
+
+}
+
+/*注：Content-Left和Content-Main元素是Content元素的子元素，两个元素使用了float:left;设置成两列，这个两个元素的宽度和这个两个元素设置的padding、margin的和一定不能大于父层Content元素的宽度，否则设置列将失败*/
+
+#Footer{
+
+	height:40px;
+
+	background:#90C;
+
+	margin-top:20px;
+
+}
+
+.Clear{
+
+	clear:both;
+
+}
+</style>
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrapper wrapper-content">
+                <div class="row animated fadeInRight">
+                    <div class="col-sm-12">
+                        <div  id="Content">
+                            <div class="text-center float-e-margins p-md">
+                                <input type="button" name="button1" id="button1" class="btn btn-primary" value="返回" onclick="history.go(-1)">
+                            </div>
+                            <div class="" id="Content-Left">
+
+                                <div id="vertical-timeline" class="vertical-container light-timeline">
+                                 #foreach( $item in $list) 
+                                 #if($!item.taskType == 1)
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+
+                                        <div class="vertical-timeline-content" style="width: 210px;">
+                                            <h2>
+		                                        #if($!item.taskType == 1)
+		                                        	PS
+		                                        #elseif($!item.taskType == 2)
+		                                        	RL
+		                                        #else
+		                                        	CV
+		                                        #end
+                                        	</h2>
+                                            <p>
+                                            #if($!item.activity == 1)
+		                                        	收到素材未挖掘
+		                                        #elseif($!item.activity == 2)
+		                                        	已经挖掘未审查
+		                                        #elseif($!item.activity == 3)
+		                                        	待发送给学生
+		                                        #elseif($!item.activity == 4)
+		                                        	已经发给学生
+		                                        #elseif($!item.activity == 5)
+		                                        	待发给兼职创作
+		                                        #elseif($!item.activity == 6)
+		                                        	兼职创作(PS中文稿，RL和CV英文稿)
+		                                        #elseif($!item.activity == 7)
+		                                        	兼职创作完成，待审核
+		                                        #elseif($!item.activity == 8)
+		                                        	审核完成，待发给学生
+		                                        #elseif($!item.activity == 9)
+		                                        	发给学生确认
+		                                        #elseif($!item.activity == 10)
+		                                        	学生确认，待发给兼职翻译
+		                                        #elseif($!item.activity == 11)
+		                                        	发给兼职翻译
+		                                        #elseif($!item.activity == 12)
+		                                        	兼职翻译完成，待审核
+		                                        #elseif($!item.activity == 13)
+		                                        	审核完成，待发给学生
+		                                        #elseif($!item.activity == 14)
+		                                        	完结
+		                                        #else
+		                                        	未收到素材
+		                                        #end
+                                            </p>
+                                            <span class="vertical-date">
+                                        <small>$!velocityUtil.formatDate($!item.createDate)</small>
+                                    </span>
+                                        </div>
+                                    </div>
+                                #end
+								#end
+
+                                   </div> 
+                                </div>
+							<div class="" id="Content-Main">
+
+                                <div id="vertical-timeline" class="vertical-container light-timeline">
+                                 #foreach( $item in $list) 
+									#if($!item.taskType == 2)
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content" style="width: 210px;">
+                                            <h2>
+		                                        #if($!item.taskType == 1)
+		                                        	PS
+		                                        #elseif($!item.taskType == 2)
+		                                        	RL
+		                                        #else
+		                                        	CV
+		                                        #end
+                                        	</h2>
+                                            <p>
+                                            #if($!item.activity == 1)
+		                                        	收到素材未挖掘
+		                                        #elseif($!item.activity == 2)
+		                                        	已经挖掘未审查
+		                                        #elseif($!item.activity == 3)
+		                                        	待发送给学生
+		                                        #elseif($!item.activity == 4)
+		                                        	已经发给学生
+		                                        #elseif($!item.activity == 5)
+		                                        	待发给兼职创作
+		                                        #elseif($!item.activity == 6)
+		                                        	兼职创作(PS中文稿，RL和CV英文稿)
+		                                        #elseif($!item.activity == 7)
+		                                        	兼职创作完成，待审核
+		                                        #elseif($!item.activity == 8)
+		                                        	审核完成，待发给学生
+		                                        #elseif($!item.activity == 9)
+		                                        	发给学生确认
+		                                        #elseif($!item.activity == 10)
+		                                        	学生确认，待发给兼职翻译
+		                                        #elseif($!item.activity == 11)
+		                                        	发给兼职翻译
+		                                        #elseif($!item.activity == 12)
+		                                        	兼职翻译完成，待审核
+		                                        #elseif($!item.activity == 13)
+		                                        	审核完成，待发给学生
+		                                        #elseif($!item.activity == 14)
+		                                        	完结
+		                                        #else
+		                                        	未收到素材
+		                                        #end
+                                            </p>
+                                            <span class="vertical-date">
+                                        <small>$!velocityUtil.formatDate($!item.createDate)</small>
+                                    </span>
+                                        </div>
+                                    </div>
+                                 #end
+								#end
+
+                                   </div> 
+                                </div>
+                                
+                                <div class="" id="Content-Main">
+
+                                <div id="vertical-timeline" class="vertical-container light-timeline">
+                                 #foreach( $item in $list) 
+                                 #if($!item.taskType == 3)
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+
+                                        <div class="vertical-timeline-content" style="width: 210px;">
+                                            <h2>
+		                                        #if($!item.taskType == 1)
+		                                        	PS
+		                                        #elseif($!item.taskType == 2)
+		                                        	RL
+		                                        #else
+		                                        	CV
+		                                        #end
+                                        	</h2>
+                                            <p>
+                                            #if($!item.activity == 1)
+		                                        	收到素材未挖掘
+		                                        #elseif($!item.activity == 2)
+		                                        	已经挖掘未审查
+		                                        #elseif($!item.activity == 3)
+		                                        	待发送给学生
+		                                        #elseif($!item.activity == 4)
+		                                        	已经发给学生
+		                                        #elseif($!item.activity == 5)
+		                                        	待发给兼职创作
+		                                        #elseif($!item.activity == 6)
+		                                        	兼职创作(PS中文稿，RL和CV英文稿)
+		                                        #elseif($!item.activity == 7)
+		                                        	兼职创作完成，待审核
+		                                        #elseif($!item.activity == 8)
+		                                        	审核完成，待发给学生
+		                                        #elseif($!item.activity == 9)
+		                                        	发给学生确认
+		                                        #elseif($!item.activity == 10)
+		                                        	学生确认，待发给兼职翻译
+		                                        #elseif($!item.activity == 11)
+		                                        	发给兼职翻译
+		                                        #elseif($!item.activity == 12)
+		                                        	兼职翻译完成，待审核
+		                                        #elseif($!item.activity == 13)
+		                                        	审核完成，待发给学生
+		                                        #elseif($!item.activity == 14)
+		                                        	完结
+		                                        #else
+		                                        	未收到素材
+		                                        #end
+                                            </p>
+                                            <span class="vertical-date">
+                                        <small>$!velocityUtil.formatDate($!item.createDate)</small>
+                                    </span>
+                                        </div>
+                                    </div>
+                                #end
+								#end
+
+                                   </div> 
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="#springUrl('/resources/js/jquery-2.1.1.min.js')"></script>
+    <script src="#springUrl('/resources/js/bootstrap.min.js?v=3.4.0')"></script>
+
+    <!-- 自定义js -->
+    <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
+
+    
+	
+	<script>
+        $(document).ready(function(){$("#lightVersion").click(function(a){a.preventDefault();$("#ibox-content").removeClass("ibox-content");$("#vertical-timeline").removeClass("dark-timeline");$("#vertical-timeline").addClass("light-timeline")});$("#darkVersion").click(function(a){a.preventDefault();$("#ibox-content").addClass("ibox-content");$("#vertical-timeline").removeClass("light-timeline");$("#vertical-timeline").addClass("dark-timeline")});$("#leftVersion").click(function(a){a.preventDefault();$("#vertical-timeline").toggleClass("center-orientation")})});
+    </script>
+	
+ 
+</body>
+
+</html>

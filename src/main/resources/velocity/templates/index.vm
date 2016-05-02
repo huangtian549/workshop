@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>七一工作室后台管理系统</title>
+
+    <link href="#springUrl('/resources/css/bootstrap.min.css?v=3.4.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/font-awesome.min.css?v=4.3.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/animate.min.css')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/markdown/bootstrap-markdown.min.css')" />
+    <link href="#springUrl('/resources/css/style.min.css?v=3.2.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/plugins/jqgrid/ui.jqgrid.css@0820')" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/footable/footable.core.css')">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>FooTable分页、排序、过滤演示</h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="table_foo_table.html#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="table_foo_table.html#">选项 01</a>
+                                    </li>
+                                    <li><a href="table_foo_table.html#">选项 02</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="搜索表格...">
+
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                <thead>
+                                        <tr>
+                                            <th>渲染引擎</th>
+                                            <th>浏览器</th>
+                                            <th>平台</th>
+                                            <th>引擎版本</th>
+                                            <th>CSS等级</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="gradeX">
+                                            <td>Trident</td>
+                                            <td>Internet Explorer 4.0
+                                            </td>
+                                            <td>Win 95+</td>
+                                            <td class="center">4</td>
+                                            <td class="center">X</td>
+                                        </tr>
+                                        <tr class="gradeA">
+                                            <td>刘明才</td>
+                                            <td>NetFront 3.4</td>
+                                            <td>Embedded devices</td>
+                                            <td class="center">-</td>
+                                            <td class="center">A</td>
+                                        </tr>
+                                        <tr class="gradeX">
+                                            <td>顾奇瑞</td>
+                                            <td>Dillo 0.8</td>
+                                            <td>Embedded devices</td>
+                                            <td class="center">-</td>
+                                            <td class="center">X</td>
+                                        </tr>
+                                        <tr class="gradeX">
+                                            <td>孙思邈</td>
+                                            <td>Links</td>
+                                            <td>Text only</td>
+                                            <td class="center">-</td>
+                                            <td class="center">X</td>
+                                        </tr>
+                                        <tr class="gradeX">
+                                            <td>Misc</td>
+                                            <td>Lynx</td>
+                                            <td>Text only</td>
+                                            <td class="center">-</td>
+                                            <td class="center">X</td>
+                                        </tr>
+                                        <tr class="gradeC">
+                                            <td>Misc</td>
+                                            <td>IE Mobile</td>
+                                            <td>Windows Mobile 6</td>
+                                            <td class="center">-</td>
+                                            <td class="center">C</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <ul class="pagination pull-right"></ul>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- 全局js -->
+    <script src="#springUrl('/resources/js/jquery-2.1.1.min.js')"></script>
+    <script src="#springUrl('/resources/js/bootstrap.min.js?v=3.4.0')"></script>
+
+    <!-- 自定义js -->
+    <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
+
+    <!-- simditor -->
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>
+	<!-- jQuery Validation plugin javascript-->
+    <script src="#springUrl('/resources/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/jqgrid/jquery.jqGrid.min.js@0820')"></script>
+    <script src="#springUrl('/resources/js/plugins/jqgrid/i18n/grid.locale-cn.js@0820')"></script>
+    <script>
+      
+	        $().ready(function(){
+	        	$("#commentForm").validate(
+	        	{debug:true});
+	        })
+    </script>
+    
+      <!-- 自定义js -->
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+    </script>
+
+	
+	
+	
+ 
+</body>
+
+</html>

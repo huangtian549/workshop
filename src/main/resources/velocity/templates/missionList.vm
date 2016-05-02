@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>七一工作室后台管理系统</title>
+
+    <link href="#springUrl('/resources/css/bootstrap.min.css?v=3.4.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/font-awesome.min.css?v=4.3.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/animate.min.css')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/markdown/bootstrap-markdown.min.css')" />
+    <link href="#springUrl('/resources/css/style.min.css?v=3.2.0')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')">
+    
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/webuploader/webuploader.css')">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/demo/webuploader-demo.css')">
+
+</head>
+
+<body class="gray-bg">
+    <div class="row">
+            <div class="col-sm-12">
+                
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <form action="/workshop/mission/searchMission" method="post">
+                                <div class="input-group">
+                                
+                                    <input name="name" type="text" placeholder="请输入学生名字" class="input-sm form-control" value="$!{name}"> <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>姓名</th>
+                                        <th>文书类型</th>
+                                        <th>状态</th>
+                                        <th>备注</th>
+                                        <th>创建日期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                #foreach( $item in $list) 
+                                    <tr>
+                                        <td>$!item.name</td>
+                                       	<td>
+                                        #if($!item.taskType == 1)
+                                        	PS
+                                        #elseif($!item.taskType == 2)
+                                        	RL
+                                        #else
+                                        	CV
+                                        #end
+                                        </td>
+                                        <td>
+                                        #if($!item.activity == 1)
+                                        	收到素材未挖掘
+                                        #elseif($!item.activity == 2)
+                                        	已经挖掘未审查
+                                        #elseif($!item.activity == 3)
+                                        	待发送给学生
+                                        #elseif($!item.activity == 4)
+                                        	已经发给学生
+                                        #elseif($!item.activity == 5)
+                                        	待发给兼职创作
+                                        #elseif($!item.activity == 6)
+                                        	兼职创作(PS中文稿，RL和CV英文稿)
+                                        #elseif($!item.activity == 7)
+                                        	兼职创作完成，待审核
+                                        #elseif($!item.activity == 8)
+                                        	审核完成，待发给学生
+                                        #elseif($!item.activity == 9)
+                                        	发给学生确认
+                                        #elseif($!item.activity == 10)
+                                        	学生确认，待发给兼职翻译
+                                        #elseif($!item.activity == 11)
+                                        	发给兼职翻译
+                                        #elseif($!item.activity == 12)
+                                        	兼职翻译完成，待审核
+                                        #elseif($!item.activity == 13)
+                                        	审核完成，待发给学生
+                                        #elseif($!item.activity == 14)
+                                        	完结
+                                        #else
+                                        	未收到素材
+                                        #end
+                                        </td>
+                                        <td>$!item.description</td>
+                                        <td>$!velocityUtil.formatDate($!item.createDate)</td>
+                                        <td>
+                                        <a href="/workshop/mission/deleteMission?id=$!item.id"><i class="fa fa-check text-navy">删除</i>
+                                        </td>
+                                    </tr>
+                                 #end 
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+      
+
+        </div>
+
+    <!-- 全局js -->
+    <script src="#springUrl('/resources/js/jquery-2.1.1.min.js')"></script>
+    <script src="#springUrl('/resources/js/bootstrap.min.js?v=3.4.0')"></script>
+
+    <!-- 自定义js -->
+    <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
+
+    <!-- simditor -->
+    <script type="text/javascript" src="#springUrl('/resourcesjs/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>
+	<!-- jQuery Validation plugin javascript-->
+    <script src="#springUrl('/resources/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/validate/messages_zh.min.js')"></script>
+    <script>
+        $.validator.setDefaults({highlight:function(a){$(a).closest(".form-group").removeClass("has-success").addClass("has-error")},success:function(a){a.closest(".form-group").removeClass("has-error").addClass("has-success")},errorElement:"span",errorPlacement:function(a,b){if(b.is(":radio")||b.is(":checkbox")){a.appendTo(b.parent().parent().parent())}else{a.appendTo(b.parent())}},errorClass:"help-block m-b-none",validClass:"help-block m-b-none"});$().ready(function(){$("#commentForm").validate();var a="<i class='fa fa-times-circle'></i> ";$("#signupForm").validate({rules:{firstname:"required",lastname:"required",username:{required:true,minlength:2},password:{required:true,minlength:5},confirm_password:{required:true,minlength:5,equalTo:"#password"},email:{required:true,email:true},topic:{required:"#newsletter:checked",minlength:2},agree:"required"},messages:{firstname:a+"请输入你的姓",lastname:a+"请输入您的名字",username:{required:a+"请输入您的用户名",minlength:a+"用户名必须两个字符以上"},password:{required:a+"请输入您的密码",minlength:a+"密码必须5个字符以上"},confirm_password:{required:a+"请再次输入密码",minlength:a+"密码必须5个字符以上",equalTo:a+"两次输入的密码不一致"},email:a+"请输入您的E-mail",agree:{required:a+"必须同意协议后才能注册",element:"#agree-error"}}});$("#username").focus(function(){var c=$("#firstname").val();var b=$("#lastname").val();if(c&&b&&!this.value){this.value=c+"."+b}})});
+    </script>
+
+	
+ 
+</body>
+
+</html>

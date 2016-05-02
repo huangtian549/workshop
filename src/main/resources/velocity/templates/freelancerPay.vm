@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>七一工作室后台管理系统</title>
+
+    <link href="#springUrl('/resources/css/bootstrap.min.css?v=3.4.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/font-awesome.min.css?v=4.3.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/animate.min.css')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/markdown/bootstrap-markdown.min.css')" />
+    <link href="#springUrl('/resources/css/style.min.css?v=3.2.0')" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/chosen/chosen.css')">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/datapicker/datepicker3.css')">
+    
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/webuploader/webuploader.css')">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/demo/webuploader-demo.css')">
+	
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+		<form action="/workshop/freelancer/updateFreelancer" method="post" class="form-horizontal" name="commentForm">
+				
+                 <input type="hidden" name="id" value="$!freelancer.id" />
+                  <div class="form-group">
+                                <label class="col-sm-2 control-label">姓名</label>
+
+                                <div class="col-sm-10">
+                                    $!freelancer.name
+                                </div>
+                 </div>
+                 
+                 <div class="form-group">
+                                <label class="col-sm-2 control-label">qq昵称</label>
+
+                                <div class="col-sm-10">
+                                    $!freelancer.qqName
+                                </div>
+                 </div>
+                 
+                 
+                 <div class="form-group">
+                                <label class="col-sm-2 control-label">计算方式</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="caculateSalaryMethod" value="$!freelancer.caculateSalaryMethod" aria-required="true" aria-invalid="true" class="error">
+                                </div>
+                 </div>
+                 
+                 <div class="form-group">
+                                <label class="col-sm-2 control-label">是否支付工资</label>
+
+                                <div class="col-sm-10">
+                                <div class="input-group">
+                                <select  class="chosen-select" style="width:350px;" tabindex="2" name="type">
+                                    <option value="">请选择分类</option>
+                                    <option value="0" hassubinfo="true" #if($freelancer.type == 0) selected #end>未支付</option>
+                                    <option value="1" hassubinfo="true" #if($freelancer.type == 1) selected #end>支付</option>
+                                </select>
+                            </div>
+                         </div>
+                 </div>
+                 <div class="form-group">
+                                <label class="col-sm-2 control-label">备注</label>
+
+                                <div class="col-sm-10">
+                                    <div class="ibox-content">
+                                	<textarea name="description" data-provide="markdown" rows="5" aria-required="true" aria-invalid="false" class="valid" required="">$!freelancer.description</textarea>
+                            		</div>
+                                </div>
+                 </div>
+                 
+                 
+                 
+                 <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                    <input type="button" name="button1" id="button1" class="btn btn-primary" value="返回" onclick="history.go(-1)">
+                                </div>
+                 </div>
+            </form>          
+    </div>
+
+    <!-- 全局js -->
+    <script src="#springUrl('/resources/js/jquery-2.1.1.min.js')"></script>
+    <script src="#springUrl('/resources/js/bootstrap.min.js?v=3.4.0')"></script>
+
+    <!-- 自定义js -->
+    <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
+
+    <!-- simditor -->
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>
+	<!-- jQuery Validation plugin javascript-->
+    <script src="#springUrl('/resources/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/chosen/chosen.jquery.js')"></script>
+    <script src="#springUrl('/resources/js/plugins/datapicker/bootstrap-datepicker.js')"></script>
+    
+    
+    <script>
+      
+	        $().ready(function(){
+	        	$("#commentForm").validate(
+	        	{debug:true});
+	        })
+    </script>
+
+	<script>
+        $("#data_1 .input-group.date").datepicker({todayBtn:"linked",keyboardNavigation:false,forceParse:false,calendarWeeks:true,autoclose:true});
+        var config={".chosen-select":{},".chosen-select-deselect":{allow_single_deselect:true},".chosen-select-no-single":{disable_search_threshold:10},".chosen-select-no-results":{no_results_text:"Oops, nothing found!"},".chosen-select-width":{width:"95%"}};for(var selector in config){$(selector).chosen(config[selector])};
+    </script>
+
+	<!-- Web Uploader -->
+        <script type="text/javascript">
+            // 添加全局站点信息
+            var BASE_URL = '#springUrl("/resources/js/plugins/webuploader")';
+        </script>
+        <script src="#springUrl('/resources/js/plugins/webuploader/webuploader.min.js')"></script>
+
+        <script src="#springUrl('/resources/js/demo/upload.js')"></script>
+	
+ 
+</body>
+
+</html>
