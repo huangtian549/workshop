@@ -2,7 +2,10 @@ package com.workshop.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -11,14 +14,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.workshop.dao.FreelancerMapper;
 import com.workshop.dao.MissionMapper;
+import com.workshop.dao.StudentMapper;
 import com.workshop.dao.TaskMapper;
 import com.workshop.po.Freelancer;
 import com.workshop.po.FreelancerExample;
 import com.workshop.po.Mission;
+import com.workshop.po.Student;
 import com.workshop.po.Task;
 import com.workshop.po.TaskExample;
 
@@ -32,6 +39,9 @@ public class FreelancerController {
 	
 	@Autowired
 	private TaskMapper taskMapper;
+	
+	@Autowired
+	private StudentMapper studentMapper;
 	
 
 	@RequestMapping("goAddFreelancer")
@@ -89,21 +99,40 @@ public class FreelancerController {
 	@RequestMapping("goCaculateSalary")
 	public String goCaculateSalary(Integer freelancerId, ModelMap modelMap){
 		TaskExample example = new TaskExample();
-		example.createCriteria().andFreelancerIdEqualTo(freelancerId).andHasPayEqualTo(0);
+		example.createCriteria().andFreelancerIdEqualTo(freelancerId).andHasPayIsNull();
 		List<Task> list = taskMapper.selectByExample(example );
+		Freelancer freelancer = freelancerMapper.selectByPrimaryKey(freelancerId);
+		
+		Map<Integer, String> map = new HashMap<>();
+		if (list != null) {
+			for (Task task : list) {
+				Student student = studentMapper.selectByPrimaryKey(task.getStudentId());
+				map.put(task.getStudentId(), student.getName());
+			}
+		}
+		
+		modelMap.put("map", map);
+		modelMap.put("freelancer", freelancer);
 		modelMap.put("list", list);
 		return "freelancerCaculateSalary";
 	}
 	
 	@RequestMapping("caculateSalary")
-	public String caculateSalary(List<Task> list){
-		if (list != null && list.size() > 0) {
-			for (Task task : list) {
+	@ResponseBody
+	public Map<String, String> caculateSalary(@RequestBody List<LinkedHashMap> taskList){
+		if (taskList != null && taskList.size() > 0) {
+			for (LinkedHashMap map : taskList) {
+				Task task = new Task();
+				task.setId(Integer.parseInt((String)map.get("id")));
+				task.setCaculateSalaryMethod(Integer.parseInt((String)map.get("caculateSalaryMethod")));
+				task.setHasPay(1);
 				taskMapper.updateByPrimaryKeySelective(task);
 			}
 		}
+		Map<String, String> map = new HashMap<String, String>(1); 
+		map.put("success", "true");  
+	    return map; 
 		
-		return "redirect:/freelancer/searchFreelancer";
 	}
 	
 	@InitBinder

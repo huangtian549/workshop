@@ -75,7 +75,7 @@
                                         <td>$!velocityUtil.formatDate($!item.createDate)</td>
                                         <td>
                                         <a href="/workshop/freelancer/goUpdateFreelancer?id=$!item.id"><i class="fa fa-check text-navy">编辑</i>
-                                        <a href="/workshop/freelancer/goCaculateSalary?id=$!item.id"><i class="fa fa-check text-navy">计算工资</i>
+                                        <a href="/workshop/freelancer/goCaculateSalary?freelancerId=$!item.id"><i class="fa fa-check text-navy">计算工资</i>
                                         <a href="/workshop/freelancer/deleteFreelancer?id=$!item.id"><i class="fa fa-check text-navy">删除</i>
                                     </tr>
                                  #end 
@@ -96,7 +96,7 @@
     <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
 
     <!-- simditor -->
-    <script type="text/javascript" src="#springUrl('/resourcesjs/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>

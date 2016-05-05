@@ -154,7 +154,7 @@
     <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
 
     <!-- simditor -->
-    <script type="text/javascript" src="#springUrl('/resourcesjs/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>

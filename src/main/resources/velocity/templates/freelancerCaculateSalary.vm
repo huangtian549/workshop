@@ -26,28 +26,20 @@
             <div class="col-sm-12">
                 
                     <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <form action="/workshop/freelancer/searchFreelancer" method="post">
-                                <div class="input-group">
-                                
-                                    <input name="name" type="text" placeholder="请输入兼职名字" class="input-sm form-control" value="$!{student.name}"> <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
+                        
                         <div class="table-responsive">
-                        <form action="/workshop/freelancer/searchFreelancer" method="post">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
 
                                         <th>姓名</th>
                                         <th>qq昵称</th>
-                                        <th>微信昵称</th>
                                         <th>支付宝账号</th>
                                         <th>分类</th>
+                                        <th>学生名称</th>
+                                        <th>字数</th>
+                                        <th>工资标准(每千字)</th>
+                                        <th>单笔金额</th>
                                         <th>备注</th>
                                         <th>创建日期</th>
                                         <th></th>
@@ -56,11 +48,10 @@
                                 <tbody>
                                 #foreach( $item in $list) 
                                     <tr>
-                                        <td>$!item.name</td>
-                                        <td><span class="pie">$!item.qqName</span>
+                                        <td>$!freelancer.name</td>
+                                        <td><span class="pie">$!freelancer.qqName</span>
                                         </td>
-                                        <td>$!item.weixinName</td>
-                                        <td>$!item.alipay</td>
+                                        <td>$!freelancer.alipay</td>
                                         <td>
                                         #if($!item.type == 0)
                                         	翻译
@@ -72,16 +63,31 @@
                                         	创作CV
                                         #end
                                         </td>
+                                        <td>$!map.get($!item.studentId)</td>
+                                        <td><label id="number$velocityCount">$!item.number </label><label id="id$velocityCount">$!item.id </label></td>
+                                        <td><input name="unit$velocityCount" id="unit$velocityCount" type="text" class="form-control" name="name" value=""></td>
+                                        <td><label id="result$velocityCount"> </label></td>
                                         <td>$!item.description</td>
                                         <td>$!velocityUtil.formatDate($!item.createDate)</td>
                                         <td>
-                                        <a href="/workshop/freelancer/goUpdateFreelancer?id=$!item.id"><i class="fa fa-check text-navy">编辑</i>
-                                        <a href="/workshop/freelancer/deleteFreelancer?id=$!item.id"><i class="fa fa-check text-navy">删除</i>
                                     </tr>
                                  #end 
                                 </tbody>
                             </table>
-                            </form>
+                            <div class="form-group">
+                            	<label class="col-sm-2 control-label"></label>
+                            	<label class="col-sm-2 control-label"></label>
+                                <label class="col-sm-2 control-label">总金额</label>
+
+                                    <label class="col-sm-2 control-label" id="pay"> 0</label>
+                 </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                	<input type="button" name="button1" id="button1" class="btn btn-primary" value="资标准" onclick="caculate()">
+                                    <input type="button" name="button1" id="button1" class="btn btn-primary" value="发工资" onclick="submitData()">
+                                    <input type="button" name="button1" id="button1" class="btn btn-primary" value="返回" onclick="history.go(-1)">
+                                </div>
+                 </div>
                         </div>
 
                     </div>
@@ -97,7 +103,7 @@
     <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
 
     <!-- simditor -->
-    <script type="text/javascript" src="#springUrl('/resourcesjs/plugins/markdown/markdown.js')"></script>
+    <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/to-markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.js')"></script>
     <script type="text/javascript" src="#springUrl('/resources/js/plugins/markdown/bootstrap-markdown.zh.js')"></script>
@@ -111,20 +117,53 @@
 
 	<script>
 	$(document).ready(function(){
-	  $("input[name=all]").click(function(){
-	  $(inlineRadio1).removeAttr("checked");
-	  $(inlineRadio2).removeAttr("checked");
-	  $(inlineRadio3).removeAttr("checked");
-	  $(inlineRadio4).removeAttr("checked");
-	  });
-	  
-	  $("input[name=status]").click(function(){
-	  $(inlineRadio5).removeAttr("checked");
-	  });
-	   $("input[name=category]").click(function(){
-	  $(inlineRadio5).removeAttr("checked");
-	  });
 	});
+	
+	function caculate(){
+		var sum = 0;
+		$.each($("input[name*='unit']"), function(i,obj){  
+		     var number = $("#"+"number"+(i+1)).text();
+		     var unit = obj.value/1000;
+		     var result = number * unit;
+		     $("#result" + (i+1) ).html(result);
+		     sum = sum + result;
+		     $("#pay").html(sum);
+ 		}); 
+ 		
+	}
+	
+	function submitData(){
+		var sum = $("#pay").text();
+		if(sum == 0) {
+			alert("请先点击 工资标准，再点提交");
+			return;
+		}
+ 		var taskList = new Array();  
+		$.each($("input[name*='unit']"), function(i,obj){  
+			var taskId = $("#"+"id"+(i+1)).text().trim();
+			var task = {};
+			task.id = taskId;
+			task.caculateSalaryMethod = obj.value;
+			if (obj.value == null){
+				alert("工资标准为空");
+				return;
+			}
+			taskList.push(task);
+ 		});  
+		$.ajax({  
+		    type: "POST",  
+		    url: "/workshop/freelancer/caculateSalary",  
+		    data: JSON.stringify(taskList),//将对象序列化成JSON字符串  
+		    dataType:"json",  
+		    contentType : 'application/json;charset=utf-8', //设置请求头信息  
+		    success: function(data){  
+		        alert("更新成功，这个兼职标记为已支付工资");
+		    },  
+		    error: function(res){  
+		        alert("更新失败，请稍后再试");
+		    }  
+		}); 
+	} 
 </script>
  
 </body>
