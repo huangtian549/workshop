@@ -34,17 +34,12 @@ public class MyHomeController extends BaseController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String login(){
+	@RequestMapping(value="/home",method=RequestMethod.GET)
+	public String home(){
 		
-		return "login";
+		return "redirect:index.shtml";
 	}
 	
-	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public String index(){
-		
-		return "index";
-	}
 	
 	@RequestMapping(value = "/user/add")
 	public String goAddStudent() {

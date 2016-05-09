@@ -32,9 +32,6 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		
-		// System.out.println(request.getContentType()+"-----"+request.getCharacterEncoding()+"------"+request.getContextPath());
-		// System.out.println("MyInterceptor.postHandle()---viewName:"+modelAndView.getViewName());
 		super.postHandle(request, response, handler, modelAndView);
 	}
 
