@@ -35,6 +35,11 @@ public class StudentController extends BaseController{
 		return "studentAdd";
 	}
 	
+	@RequestMapping(value="/student/goAddstudent2")
+	public String goAddStudent2() {
+		return "studentAdd";
+	}
+	
 	
 	@RequestMapping(value="/student/addStudent")
 	public String addStudent(Student student) {
@@ -56,7 +61,7 @@ public class StudentController extends BaseController{
 		}else if (StringUtils.hasLength(student.getQq())) {
 			example.createCriteria().andQqEqualTo(student.getQq());
 			list = studentMapper.selectByExample(example );
-		}else if (student.getCategory() != null && student.getCategory() == 1 && student.getStatus() != null) {
+		}else if (student.getCategory() != null && student.getStatus() != null) {
 			example.createCriteria().andCategoryEqualTo(student.getCategory()).andStatusEqualTo(student.getStatus());
 			list = studentMapper.selectByExample(example );
 		}else if (student.getCategory()!= null && student.getCategory() == 0 ) {
@@ -116,17 +121,29 @@ public class StudentController extends BaseController{
 	}
 	
 	@RequestMapping(value="/student/goContact")
-	public String goContact(Student student, ModelMap modelMap) {
+	public String goContact(Integer id, ModelMap modelMap) {
+		Student student = studentMapper.selectByPrimaryKey(id);
 		String image = student.getImage();
+		List<String> list = new ArrayList<>();
+		List<String> wordList = new ArrayList<>();
 		if (StringUtils.hasLength(image)) {
 			
-			List<String> list = new ArrayList<>();
 			String[] imageArray = image.split(",");
 			for (String s : imageArray) {
-				
+				String suffix = s.substring(s.lastIndexOf(".")+1);
+				if (!suffix.contains("doc")) {
+					list.add(s);
+				}else {
+					s = s.replace("workshop", "workshop/html");
+					s = s.replace(".docx", ".html");
+					s = s.replace(".doc", ".html");
+					wordList.add(s);
+				}
 			}
 		}
-//		modelMap.
+		modelMap.put("list", list);
+		modelMap.put("wordList", wordList);
+		modelMap.put("student", student);
 		return "showContact";
 	}
 	

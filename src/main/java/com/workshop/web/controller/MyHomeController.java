@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.workshop.util.CalendarUtil;
+import com.workshop.util.CommonUtil;
 import com.workshop.web.BaseController;
 
 /**
@@ -34,8 +35,8 @@ public class MyHomeController extends BaseController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/home",method=RequestMethod.GET)
-	public String home(){
+	@RequestMapping(value="/goManage",method=RequestMethod.GET)
+	public String goManage(){
 		
 		return "redirect:index.shtml";
 	}
@@ -46,7 +47,7 @@ public class MyHomeController extends BaseController {
 		return "addStudent";
 	}
 	
-	@RequestMapping("/home/uploadPic")
+	@RequestMapping(value="/home/uploadPic", produces = "text/html;charset=UTF-8")
 	@ResponseBody
     public String uploadHeadPic(@RequestParam("file")MultipartFile file,HttpServletRequest request,HttpServletResponse response) throws Exception{
             String picUrl =  this.upload(file, this.path,request);
@@ -73,6 +74,7 @@ public class MyHomeController extends BaseController {
             StringBuilder sb =  new StringBuilder();
             Date date = new Date();
     		String dateString = CalendarUtil.getDateString(date, CalendarUtil.SHORT_DATE_FORMAT_NO_DASH);
+    		dateString = "workshop"  + dateString;
             for (MultipartFile file : files) {
                 String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
                 int length = getAllowSuffix().indexOf(suffix);
@@ -114,10 +116,10 @@ public class MyHomeController extends BaseController {
      * @throws Exception
      */
     public String upload(MultipartFile file, String destDir,HttpServletRequest request) throws Exception {
-        String path = request.getContextPath();
         String picUrl = "";
         try {
                 String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+                String fileOriginalName = file.getOriginalFilename();
                 int length = getAllowSuffix().indexOf(suffix);
                 if(length == -1){
                     throw new Exception("请上传允许格式的文件");
@@ -126,18 +128,24 @@ public class MyHomeController extends BaseController {
                     throw new Exception("您上传的文件大小已经超出范围");
                 }
                  
-//                String realPath = request.getSession().getServletContext().getRealPath("/");
-                Date date = new Date();
-        		String dateString = CalendarUtil.getDateString(date, CalendarUtil.SHORT_DATE_FORMAT_NO_DASH);
-                File destFile = new File(destDir + dateString + "/");
+                File destFile = new File(destDir  + "/");
                 if(!destFile.exists()){
                     destFile.mkdirs();
                 }
-                String fileNameNew = getFileNameNew()+"."+suffix;
-                File f = new File(destFile.getAbsoluteFile()+"/"+fileNameNew);
+                File f = new File(destFile.getAbsoluteFile()+"/"+fileOriginalName);
+                if (f.exists()) {
+                	Date date = new Date();
+            		String dateString = CalendarUtil.getDateString(date, CalendarUtil.SIMPLE_DATE_FORMAT_NO_DASH);
+                	f = new File(destFile.getAbsoluteFile()+"/" + dateString + fileOriginalName);
+				}
+                String fileNameNew = f.getName();
                 file.transferTo(f);
                 f.createNewFile();
-               picUrl = "/data/" + dateString + "/" + fileNameNew;
+                
+                //转换成html
+                CommonUtil.convertWord2Html(f.getAbsolutePath(), destDir + "html/");
+                
+               picUrl = "/data/workshop/" + fileNameNew;
         } catch (Exception e) {
             throw e;
         }
@@ -159,9 +167,9 @@ public class MyHomeController extends BaseController {
         }
         
         
-        private String allowSuffix = "jpg,png,gif,jpeg";
+        private String allowSuffix = "jpg,png,gif,jpeg,doc,docx";
 //        String path = "/home/workshop/";
-        String path ="/Users/liunaikun/Documents/swift/";
+        String path ="/Users/liunaikun/Documents/swift/data/workshop/";
         private long allowSize = 2000000L;//允许文件大小
         private String fileName;
         private String[] fileNames;

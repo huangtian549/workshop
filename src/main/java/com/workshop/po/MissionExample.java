@@ -315,6 +315,66 @@ public class MissionExample {
             return (Criteria) this;
         }
 
+        public Criteria andTaskIdIsNull() {
+            addCriterion("task_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIsNotNull() {
+            addCriterion("task_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdEqualTo(Integer value) {
+            addCriterion("task_id =", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotEqualTo(Integer value) {
+            addCriterion("task_id <>", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThan(Integer value) {
+            addCriterion("task_id >", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("task_id >=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThan(Integer value) {
+            addCriterion("task_id <", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThanOrEqualTo(Integer value) {
+            addCriterion("task_id <=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIn(List<Integer> values) {
+            addCriterion("task_id in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotIn(List<Integer> values) {
+            addCriterion("task_id not in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdBetween(Integer value1, Integer value2) {
+            addCriterion("task_id between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("task_id not between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskTypeIsNull() {
             addCriterion("task_type is null");
             return (Criteria) this;

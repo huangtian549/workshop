@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>七一工作室后台管理系统</title>
+
+    <link href="#springUrl('/resources/css/bootstrap.min.css?v=3.4.0')" rel="stylesheet">
+    <link href="#springUrl('/resources/css/font-awesome.min.css?v=4.3.0')" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/markdown/bootstrap-markdown.min.css')" />
+    <link href="#springUrl('/resources/css/style.min.css?v=3.2.0')" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="#springUrl('/resources/css/plugins/blueimp/css/blueimp-gallery.min.css')">
+	<style>
+        .lightBoxGallery img {
+            margin: 5px;
+            width: 160px;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>学生信息</h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">姓名：</label>
+                                <div class="col-sm-8">
+                                    $!student.name
+                                </div>
+                            </div>
+                            
+                            
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>查看基本信息表</h5>
+                    </div>
+                    <div class="ibox-content">
+                        #foreach( $item in $wordList) 
+                            <a href="http://127.0.0.1$!item" target="_blank">信息表$velocityCount</a>
+						#end
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+
+                    <div class="ibox-content">
+
+                        <div class="lightBoxGallery">
+                        #foreach( $item in $list) 
+                            <a href="http://127.0.0.1$!item" title="图片" data-gallery=""><img src="http://127.0.0.1$!item"></a>
+						#end
+                            <div id="blueimp-gallery" class="blueimp-gallery">
+                                <div class="slides"></div>
+                                <h3 class="title"></h3>
+                                <a class="prev">‹</a>
+                                <a class="next">›</a>
+                                <a class="close">×</a>
+                                <a class="play-pause"></a>
+                                <ol class="indicator"></ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="#springUrl('/resources/js/jquery-2.1.1.min.js')"></script>
+    <script src="#springUrl('/resources/js/bootstrap.min.js?v=3.4.0')"></script>
+
+    <!-- 自定义js -->
+    <script src="#springUrl('/resources/js/content.min.js?v=1.0.0')"></script>
+
+    <script src="#springUrl('/resources/js/plugins/blueimp/jquery.blueimp-gallery.min.js')"></script>
+ 
+</body>
+
+</html>

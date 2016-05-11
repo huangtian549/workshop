@@ -2,7 +2,9 @@ package com.workshop.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,7 +21,9 @@ import com.workshop.dao.TaskMapper;
 import com.workshop.po.Freelancer;
 import com.workshop.po.FreelancerExample;
 import com.workshop.po.Mission;
+import com.workshop.po.Student;
 import com.workshop.po.Task;
+import com.workshop.po.TaskExample;
 
 @Controller
 @RequestMapping("/mission/*")
@@ -47,19 +51,21 @@ public class MissionController {
 	@RequestMapping("addMission")
 	public String addMission(Mission mission, Task task, ModelMap modelMap) {
 		modelMap.put("studentId", mission.getStudentId());
-		missionMapper.insert(mission);
 		task.setType(mission.getTaskType());
 		taskMapper.insert(task);
+		mission.setTaskId(task.getId());
+		missionMapper.insert(mission);
 		return "missionAdd";
 	}
 	
 	@RequestMapping("searchMission")
-	public String searchMission(String name, ModelMap modelMap) {
+	public String searchMission(Student student, ModelMap modelMap) {
 		
-		List<Mission> list = missionMapper.selectByName(name);
+		List<Mission> list = missionMapper.selectByName(student);
+		
 		modelMap.put("list", list);
-		modelMap.put("name", name);
-		if (StringUtils.hasLength(name)) {
+		modelMap.put("name", student.getName());
+		if (StringUtils.hasLength(student.getName())) {
 			return "missionListTimeline";
 		}
 		return "missionList";

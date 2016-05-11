@@ -180,6 +180,9 @@
 		                                        #end
                                             </p>
                                             <span class="vertical-date">
+                                             #if($!item.freelancerName)
+                                            	兼职姓名：$!item.freelancerName
+                                            #end <br>
                                         <small>$!velocityUtil.formatDate($!item.createDate)</small>
                                     </span>
                                         </div>
@@ -242,7 +245,10 @@
 		                                        #end
                                             </p>
                                             <span class="vertical-date">
-                                        <small>$!velocityUtil.formatDate($!item.createDate)</small>
+                                            #if($!item.freelancerName)
+                                            	兼职姓名：$!item.freelancerName
+                                            #end <br>
+                                        	<small>$!velocityUtil.formatDate($!item.createDate)</small>
                                     </span>
                                         </div>
                                     </div>
@@ -306,6 +312,9 @@
 		                                        #end
                                             </p>
                                             <span class="vertical-date">
+                                             #if($!item.freelancerName)
+                                            	兼职姓名：$!item.freelancerName
+                                            #end <br>
                                         <small>$!velocityUtil.formatDate($!item.createDate)</small>
                                     </span>
                                         </div>
