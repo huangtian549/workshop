@@ -168,9 +168,9 @@ public class MyHomeController extends BaseController {
         
         
         private String allowSuffix = "jpg,png,gif,jpeg,doc,docx";
-//        String path = "/home/workshop/";
-        String path ="/Users/liunaikun/Documents/swift/data/workshop/";
-        private long allowSize = 2000000L;//允许文件大小
+        String path = "/home/data/workshop/";
+//        String path ="/Users/liunaikun/Documents/swift/data/workshop/";
+        private long allowSize = 5000000L;//允许文件大小
         private String fileName;
         private String[] fileNames;
 

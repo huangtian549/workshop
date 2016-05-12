@@ -52,7 +52,7 @@
                     </div>
                     <div class="ibox-content">
                         #foreach( $item in $wordList) 
-                            <a href="http://127.0.0.1$!item" target="_blank">信息表$velocityCount</a>
+                            <a href="http://104.131.91.181$!item" target="_blank">信息表$velocityCount</a>
 						#end
                     </div>
                 </div>
@@ -64,7 +64,7 @@
 
                         <div class="lightBoxGallery">
                         #foreach( $item in $list) 
-                            <a href="http://127.0.0.1$!item" title="图片" data-gallery=""><img src="http://127.0.0.1$!item"></a>
+                            <a href="http://104.131.91.181$!item" title="图片" data-gallery=""><img src="http://104.131.91.181$!item"></a>
 						#end
                             <div id="blueimp-gallery" class="blueimp-gallery">
                                 <div class="slides"></div>

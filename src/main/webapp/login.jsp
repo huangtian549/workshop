@@ -31,7 +31,7 @@
 						<td align="left"><img
 							src="${pageContext.servletContext.contextPath }/admin_files/logo_left.png"
 							alt="Logo"></td>
-							<td align="center" style="font-weight: bold;color: gray;">登录－蓝缘管理系统</td>
+							<td align="center" style="font-weight: bold;color: gray;">登录－七一工作室后台管理系统</td>
 						<td align="right"><img
 							src="${pageContext.servletContext.contextPath }/admin_files/logo_left.png"
 							alt="Logo"></td>
@@ -54,7 +54,7 @@
 					<div class="main_input_box">
 						<span class="add-on bg_ly"><img
 							src="${pageContext.servletContext.contextPath }/admin_files/lock_1.png"
-							alt="请输入密码.."></span><input type="password" placeholder="password" name="password" value="123456"
+							alt="请输入密码.."></span><input type="password" placeholder="password" name="password" value=""
 							style="height: 32px; margin-bottom: 0px;"/>
 					</div>
 				</div>
@@ -62,8 +62,7 @@
 			<div class="form-actions">
 				<span class="pull-left" style="width: 33%"><a href="#"
 					class="flip-link btn btn-info" id="to-recover">忘记密码？</a></span>
-					<span class="pull-left" style="width: 33%"><a href="install.shtml"
-					class="flip-link btn btn-danger" id="to-recover">一键初始化系统</a></span>
+					<span class="pull-left" style="width: 33%">
 					 <span
 					class="pull-right"><a type="submit"
 					href="javascript:checkUserForm()" class="btn btn-success">登&nbsp;&nbsp;录</a></span>
