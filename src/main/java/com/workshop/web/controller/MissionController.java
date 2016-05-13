@@ -71,6 +71,16 @@ public class MissionController {
 		return "missionList";
 	}
 	
+	@RequestMapping("searchMissionByStudentId")
+	public String searchMissionByStudentId(Student student, ModelMap modelMap) {
+		
+		List<Mission> list = missionMapper.selectByStudentId(student);
+		
+		modelMap.put("list", list);
+		modelMap.put("name", student.getName());
+		return "missionListTimeline";
+	}
+	
 	@RequestMapping("deleteMission")
 	public String deleteMission(Mission mission, ModelMap modelMap) {
 		

@@ -97,4 +97,6 @@ public interface MissionMapper {
     int updateByPrimaryKey(Mission record);
 
 	List<Mission> selectByName(Student student);
+	
+	List<Mission> selectByStudentId(Student student);
 }

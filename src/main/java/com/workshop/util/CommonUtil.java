@@ -171,7 +171,6 @@ public class CommonUtil {
 			if (!outputFolderFile.exists()) {
 				outputFolderFile.mkdirs();
 			}
-			System.out.println(outputFolder);
 
 			XHTMLOptions options = XHTMLOptions.create().indent(4);
 			//img的src属性 后面会自动添加/word/media
@@ -185,7 +184,7 @@ public class CommonUtil {
 			// 3) Convert XWPFDocument to XHTML
 			File file = new File(filePath);
 	        String fileName  = file.getName();
-	        fileName = CommonUtil.converterToSpell(fileName);
+//	        fileName = CommonUtil.converterToSpell(fileName);
 	        fileName = fileName.replace(".docx", ".html");
 			OutputStream out = new FileOutputStream(new File(
 					outputFolder + fileName));

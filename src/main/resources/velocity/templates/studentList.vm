@@ -110,7 +110,7 @@
                                         <td>$!item.type</td>
                                         <td>$!item.year</td>
                                         <td>$!item.endDateString</td>
-                                        <td><a href="/workshop/mission/searchMission?name=$!item.name"><i class="fa fa-check text-navy">查看</i></td>
+                                        <td><a href="/workshop/mission/searchMissionByStudentId?id=$!item.id"><i class="fa fa-check text-navy">查看</i></td>
                                         <td>$!item.major</td>
                                        	<td>
                                         #if($!item.category == 1)
