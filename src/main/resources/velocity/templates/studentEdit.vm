@@ -170,7 +170,7 @@
                                     <input type="text" class="form-control" name="major" value="$!student.major" aria-required="true" aria-invalid="true" class="error">
                                 </div>
                  </div>
-                  <input type="hidden" name="image" id="image" />
+                  <input type="hidden" name="image" id="image" value="$!student.image"/>
                  <div class="form-group" >
                  	  <label class="col-sm-2 control-label">上传聊天记录</label>
                  	  
@@ -203,7 +203,7 @@
 
                                 <div class="col-sm-10">
                                     <div class="ibox-content">
-                                	<textarea name="description" data-provide="markdown" rows="5" aria-required="true" aria-invalid="false" class="valid" required="">$!student.description</textarea>
+                                	<textarea name="description" data-provide="markdown" rows="5" aria-required="true" aria-invalid="false" class="valid">$!student.description</textarea>
                             		</div>
                                 </div>
                  </div>

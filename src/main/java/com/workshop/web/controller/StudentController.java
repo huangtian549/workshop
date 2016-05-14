@@ -109,7 +109,7 @@ public class StudentController extends BaseController{
 			
 		}
 		
-		studentService.updateStudnet(student);
+		studentMapper.updateByPrimaryKeySelective(student);
 		return "redirect:/student/searchStudent";
 	}
 	
